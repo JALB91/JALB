@@ -9,7 +9,7 @@ std::shared_ptr<Scene> Scene::create()
 {
     std::shared_ptr<Scene> scene (new Scene);
 
-    if (scene && scene->init(scene))
+    if (scene && scene->init())
     {
         return scene;
     }
@@ -29,14 +29,14 @@ Scene::~Scene()
 }
 
 
-bool Scene::init(const std::shared_ptr<Node>& me)
+bool Scene::init()
 {
-    if (!Node::init(me))
+    if (!Node::init())
     {
         return false;
     }
 
-    schedulePostUpdate(me);
+    schedulePostUpdate();
 
     return true;
 }

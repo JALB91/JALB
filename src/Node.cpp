@@ -10,7 +10,7 @@ std::shared_ptr<Node> Node::create()
 {
     std::shared_ptr<Node> node (new Node);
 
-    if (node && node->init(node))
+    if (node && node->init())
     {
         return node;
     }
@@ -38,7 +38,7 @@ Node::~Node()
 }
 
 
-bool Node::init(const std::shared_ptr<Node>& me)
+bool Node::init()
 {
     return true;
 }
@@ -72,24 +72,24 @@ void Node::postUpdate()
 }
 
 
-void Node::removeFromParent(const std::shared_ptr<Node>& me)
+void Node::removeFromParent()
 {
     assert(_parent == nullptr);
-    _parent->removeChild(me);
+    _parent->removeChild(shared_from_this());
 }
 
 
-void Node::addChild(const std::shared_ptr<Node>& me, const std::shared_ptr<Node>& child)
+void Node::addChild(const std::shared_ptr<Node>& child)
 {
-    addChild(me, child, 0);
+    addChild(child, 0);
 }
 
-void Node::addChild(const std::shared_ptr<Node>& me, const std::shared_ptr<Node>& child, const int& z_ord)
+void Node::addChild(const std::shared_ptr<Node>& child, const int& z_ord)
 {
     assert(child->_parent == nullptr);
 
     _children.push_back(child);
-    child->_parent = me;
+    child->_parent = shared_from_this();
     child->setZOrd(z_ord);
 }
 
@@ -150,19 +150,19 @@ void Node::removeChildByTag(const int& tag)
 }
 
 
-void Node::schedulePreUpdate(const std::shared_ptr<Node>& me)
+void Node::schedulePreUpdate()
 {
-    Director::getInstance()->schedulePreUpdate(CALLBACK_0(Node::preUpdate, this), me);
+    Director::getInstance()->schedulePreUpdate(CALLBACK_0(Node::preUpdate, this), shared_from_this());
 }
 
-void Node::scheduleUpdate(const std::shared_ptr<Node>& me)
+void Node::scheduleUpdate()
 {
-    Director::getInstance()->scheduleUpdate(CALLBACK_1(Node::update, this), me, "update");
+    Director::getInstance()->scheduleUpdate(CALLBACK_1(Node::update, this), shared_from_this(), "update");
 }
 
-void Node::schedulePostUpdate(const std::shared_ptr<Node>& me)
+void Node::schedulePostUpdate()
 {
-    Director::getInstance()->schedulePostUpdate(CALLBACK_0(Node::postUpdate, this), me);
+    Director::getInstance()->schedulePostUpdate(CALLBACK_0(Node::postUpdate, this), shared_from_this());
 }
 
 NS_JALB_END

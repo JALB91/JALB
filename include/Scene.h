@@ -18,7 +18,7 @@ class Scene : public Node
 
 	protected:
         Scene();
-        virtual bool init(const std::shared_ptr<Node>& me) override;
+        virtual bool init() override;
 
 	private:
 

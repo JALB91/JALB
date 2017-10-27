@@ -22,7 +22,7 @@ class Label : public Node
 
 	protected:
         Label(const std::string& text);
-        virtual bool init(const std::shared_ptr<Node>& me) override;
+        virtual bool init() override;
 
 	private:
 		string _text = "";

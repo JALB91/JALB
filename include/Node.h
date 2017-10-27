@@ -49,22 +49,22 @@ class Node: public std::enable_shared_from_this<Node>
         inline void setContentSize(const int& s) { setContentSize(Size(s)); };
 
         inline std::shared_ptr<Node> getParent() const { return _parent; };
-        void removeFromParent(const std::shared_ptr<Node>& me);
+        void removeFromParent();
 
         inline vector<std::shared_ptr<Node>> getChildren() const { return _children; };
-        void addChild(const std::shared_ptr<Node>& me, const std::shared_ptr<Node>& child);
-        void addChild(const std::shared_ptr<Node>& me, const std::shared_ptr<Node>& child, const int& z_ord);
+        void addChild(const std::shared_ptr<Node>& child);
+        void addChild(const std::shared_ptr<Node>& child, const int& z_ord);
         void removeChild(const std::shared_ptr<Node>& child);
         void removeChildByName(const string& name);
         void removeChildByTag(const int& tag);
 
     protected:
         Node();
-        virtual bool init(const std::shared_ptr<Node>& me);
+        virtual bool init();
 
-        void schedulePreUpdate(const std::shared_ptr<Node>& me);
-        void scheduleUpdate(const std::shared_ptr<Node>& me);
-        void schedulePostUpdate(const std::shared_ptr<Node>& me);
+        void schedulePreUpdate();
+        void scheduleUpdate();
+        void schedulePostUpdate();
 
         string _name;
 

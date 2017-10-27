@@ -8,7 +8,7 @@ std::shared_ptr<Label> Label::createWithText(const std::string& text)
 {
     std::shared_ptr<Label> label (new Label(text));
 
-    if (label && label->init(label))
+    if (label && label->init())
     {
         return label;
     }
@@ -34,9 +34,9 @@ Label::~Label()
 }
 
 
-bool Label::init(const std::shared_ptr<Node>& me)
+bool Label::init()
 {
-    if (!Node::init(me))
+    if (!Node::init())
     {
         return false;
     }
